@@ -1,6 +1,7 @@
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 driver = webdriver.Chrome()
@@ -16,6 +17,9 @@ DATA_GENDER = Gender.FEMALE
 DATA_FIRST_NAME = "Janusz"
 DATA_LAST_NAME = "Kowalski"
 DATA_PASSWORD = "12345678!"
+DATA_DAY_OF_BIRTH = 7
+DATA_DAY_OF_MONTH = 2
+DATA_DAY_OF_YEAR = 1990
 
 driver.find_element(By.PARTIAL_LINK_TEXT, "Sign in")
 signup_button = driver.find_element(By.XPATH , '//a[@title="Log in to your customer account"]')
@@ -40,12 +44,27 @@ last_name_field = driver.find_element(By.XPATH , '//*[@id="customer_lastname"]')
 last_name_field.send_keys(DATA_LAST_NAME)
 
 email_field = driver.find_element(By.XPATH , '//*[@id="email"]')
-email_field.send_keys(DATA_EMAIL)
+email_field.send_keys("")
 
 password_field = driver.find_element(By.XPATH , '//*[@id="passwd"]')
 password_field.send_keys(DATA_PASSWORD)
 
-sleep(5)
+dropdown_day_of_birth = driver.find_element(By.XPATH, '//*[@id="days"]')
+select = Select(dropdown_day_of_birth)
+select.select_by_index(DATA_DAY_OF_BIRTH)
+
+dropdown_month_of_birth = driver.find_element(By.XPATH, '//*[@id="months"]')
+select = Select(dropdown_month_of_birth)
+select.select_by_index(DATA_DAY_OF_MONTH)
+
+dropdown_month_of_year = driver.find_element(By.XPATH, '//*[@id="years"]')
+select = Select(dropdown_month_of_year)
+select.select_by_value(str(DATA_DAY_OF_YEAR))
+
+submit_button = driver.find_element(By.XPATH , '//*[@id="submitAccount"]')
+submit_button.click()
+
+sleep(50)
 
 # shadow_host = driver.find_element(By.ID, "usercentrics-root")
 # shadow_root = shadow_host.shadow_root
