@@ -13,7 +13,7 @@ signup_button.click()
 email_registration_field = driver.find_element(By.XPATH , '//*[@id="email_create"]')
 email_registration_field.send_keys("tester@gmail.com")
 
-register_button = driver.find_element(By.XPATH , '/html/body/div/div[2]/div/div[3]/div/div/div[1]/form/div/div[3]/button/span')
+register_button = driver.find_element(By.XPATH , '//*[@id="SubmitCreate"]')
 register_button.click()
 sleep(5)
 
