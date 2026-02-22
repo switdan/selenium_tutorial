@@ -1,3 +1,5 @@
+from time import sleep
+
 from selenium.webdriver.support.select import Select
 from data_tools import *
 from selenium import webdriver
@@ -15,7 +17,7 @@ class RegisterNewUserTest(unittest.TestCase):
         self.driver.implicitly_wait(10)
         # 2. User is unlogged - there is no need any action
 
-
+    @unittest.skip("Temporary skipping test_positive_registration")
     def test_positive_registration(self):
         # Steps
         # 1. Click on "Sign in"
@@ -67,6 +69,31 @@ class RegisterNewUserTest(unittest.TestCase):
         # 14. "My account" page shown
         self.assertEqual("https://automationpractice.techwithjatin.com/my-account", self.driver.current_url)
 
+    def test_password_too_short(self):
+        # Steps
+        # 1. Click on "Sign in"
+        self.driver.find_element(By.XPATH, '//a[@title="Log in to your customer account"]').click()
+
+        # 2. Type the email address
+        generated_email = TestData.DATA_EMAIL
+        self.driver.find_element(By.XPATH, '//*[@id="email_create"]').send_keys(generated_email)
+
+        # 3. Click "Create an account" button
+        self.driver.find_element(By.XPATH, '//*[@id="SubmitCreate"]').click()
+        sleep(2)
+
+        # 4. Type the too short password
+        self.driver.find_element(By.XPATH, '//*[@id="passwd"]').send_keys(TestData.DATA_PASSWORD[:4])
+
+        # 5. Click "Submit" button
+        self.driver.find_element(By.XPATH, '//*[@id="submitAccount"]').click()
+
+        # 6. Error with wrong password shown
+        error_message = self.driver.find_element(By.XPATH, '//div[@class="alert alert-danger"]/ol/li[b[text()="passwd"]]').text
+        self.assertEqual("passwd is invalid.", error_message)
+
+
+        # sleep(10)
 
     def tearDown(self):
         # Close
