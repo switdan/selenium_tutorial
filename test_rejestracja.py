@@ -18,7 +18,7 @@ class RegisterNewUserTest(unittest.TestCase):
         # 2. User is unlogged - there is no need any action
 
 
-    def test_no_name_in_reqistration_form(self):
+    def test_positive_reqistration(self):
         # Steps
         # 1. Click on "Sign in"
         self.driver.find_element(By.XPATH, '//a[@title="Log in to your customer account"]').click()
@@ -61,7 +61,7 @@ class RegisterNewUserTest(unittest.TestCase):
         # 11. Click "Submit" button
         self.driver.find_element(By.XPATH, '//*[@id="submitAccount"]').click()
 
-        # 12. Confirmation page show
+        # 12. "My account" page shown
         self.assertEqual("https://automationpractice.techwithjatin.com/my-account", self.driver.current_url)
 
 
