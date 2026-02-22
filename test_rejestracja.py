@@ -18,7 +18,7 @@ class RegisterNewUserTest(unittest.TestCase):
         # 2. User is unlogged - there is no need any action
 
 
-    def test_positive_reqistration(self):
+    def test_positive_registration(self):
         # Steps
         # 1. Click on "Sign in"
         self.driver.find_element(By.XPATH, '//a[@title="Log in to your customer account"]').click()
