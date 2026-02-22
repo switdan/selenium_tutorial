@@ -52,7 +52,7 @@ password_field.send_keys(DATA_PASSWORD)
 
 dropdown_day_of_birth = driver.find_element(By.XPATH, '//*[@id="days"]')
 select = Select(dropdown_day_of_birth)
-select.select_by_index(DATA_DAY_OF_BIRTH)
+Select(dropdown_day_of_birth).select_by_index(DATA_DAY_OF_BIRTH)
 
 dropdown_month_of_birth = driver.find_element(By.XPATH, '//*[@id="months"]')
 select = Select(dropdown_month_of_birth)

@@ -1,5 +1,3 @@
-from time import sleep
-
 from selenium.webdriver.support.select import Select
 from data_tools import *
 from selenium import webdriver
@@ -24,7 +22,8 @@ class RegisterNewUserTest(unittest.TestCase):
         self.driver.find_element(By.XPATH, '//a[@title="Log in to your customer account"]').click()
 
         # 2. Type the email address
-        self.driver.find_element(By.XPATH, '//*[@id="email_create"]').send_keys(TestData.DATA_EMAIL)
+        generated_email = TestData.DATA_EMAIL
+        self.driver.find_element(By.XPATH, '//*[@id="email_create"]').send_keys(generated_email)
 
         # 3. Click "Create an account" button
         self.driver.find_element(By.XPATH, '//*[@id="SubmitCreate"]').click()
@@ -43,25 +42,29 @@ class RegisterNewUserTest(unittest.TestCase):
         # 6. Type the last name
         self.driver.find_element(By.XPATH, '//*[@id="customer_lastname"]').send_keys(TestData.DATA_LAST_NAME)
 
-        # 7. Leave the same email
+        # 7. Check if the email are the same as typed earlier
+        existed_email =  self.driver.find_element(By.XPATH, '//*[@id="email"]').get_attribute('value')
+        self.assertEqual(generated_email, existed_email)
+
+        # 8. Leave the same email
         self.driver.find_element(By.XPATH, '//*[@id="email"]').send_keys("")
 
-        # 8. Type the password
+        # 9. Type the password
         self.driver.find_element(By.XPATH, '//*[@id="passwd"]').send_keys(TestData.DATA_PASSWORD)
 
-        # 9. Chose the day of birth
+        # 10. Chose the day of birth
         Select(self.driver.find_element(By.XPATH, '//*[@id="days"]')).select_by_index(TestData.DATA_DAY_OF_BIRTH)
 
-        # 9. Chose the month of birth
+        # 11. Chose the month of birth
         Select(self.driver.find_element(By.XPATH, '//*[@id="months"]')).select_by_index(TestData.DATA_DAY_OF_MONTH)
 
-        # 10. Chose the year of birth
+        # 12. Chose the year of birth
         Select(self.driver.find_element(By.XPATH, '//*[@id="years"]')).select_by_value(str(TestData.DATA_DAY_OF_YEAR))
 
-        # 11. Click "Submit" button
+        # 13. Click "Submit" button
         self.driver.find_element(By.XPATH, '//*[@id="submitAccount"]').click()
 
-        # 12. "My account" page shown
+        # 14. "My account" page shown
         self.assertEqual("https://automationpractice.techwithjatin.com/my-account", self.driver.current_url)
 
 
